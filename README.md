@@ -50,6 +50,19 @@ static void my_application_activate(GApplication* application) {
 ...
 
 ```
+If VS Code is running as an X11 window, environment variable `GDK_BACKEND` will be set to `x11`. this with also launch the flutter app as X11 window, which will cause compilation to fail when using this package.
+
+To fix the problem, edit `main.cc` :
+
+add :
+```cpp
+#include <stdlib.h>
+```
+- Add the following at the beginning of `main()` function.
+
+```cpp
+setenv("GDK_BACKEND", "wayland", 1);
+```
 
 ## Dependencies
 
